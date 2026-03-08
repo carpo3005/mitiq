@@ -1432,7 +1432,7 @@ class PolyExpFactory(BatchedFactory):
         # Note: coefficients are ordered from high powers to powers of x
         # Weights "w" are used to compensate for error propagation
         # after the log transformation y --> z
-        z_coefficients, param_cov = mitiq_polyfit(
+        z_coefficients, params_cov = mitiq_polyfit(
             scale_factors,
             zstack,
             deg=order,
@@ -1450,7 +1450,7 @@ class PolyExpFactory(BatchedFactory):
         if params_cov is not None:
             if params_cov.shape == (order + 1, order + 1):
                 zne_error = np.exp(z_coefficients[-1]) * np.sqrt(
-                    params_cov[order + 1, order + 1]
+                    params_cov[order, order]
                 )
 
         # Parameters from low order to high order
